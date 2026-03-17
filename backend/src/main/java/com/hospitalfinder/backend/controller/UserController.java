@@ -189,7 +189,7 @@ public class UserController {
 
             
             if (token == null || token.isBlank()) {
-                System.out.println("Missing authentication token");
+
                 return ResponseEntity.status(401).body("Missing authentication token");
             }
             

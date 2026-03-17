@@ -133,7 +133,7 @@ public class ChatController {
                 Matcher matcher = HOSPITAL_QUERY_PATTERN.matcher(content.trim());
                 if (matcher.find()) {
                     String placeName = matcher.group(1).trim();
-                    System.out.println("Hospital search detected for place: " + placeName);
+
 
                     // Check for "near me" intent
                     if (placeName.equalsIgnoreCase("me") || placeName.equalsIgnoreCase("my location")) {
@@ -180,11 +180,7 @@ public class ChatController {
         // Proceed with AI chat
         String url = "https://api.groq.com/openai/v1/chat/completions";
 
-        System.out.println("Received chat request with "
-                + (request.getMessages() != null ? request.getMessages().size() : 0) + " messages.");
-        System.out.println("Contains symptoms: " + containsSymptoms);
-        System.out.println("Using API Key: "
-                + (apiKey != null && apiKey.length() > 5 ? apiKey.substring(0, 5) + "..." : "NULL/EMPTY"));
+
 
         // Get language from request (default to English)
         String language = request.getLanguage();
@@ -233,9 +229,7 @@ public class ChatController {
 
         try {
             // 5. Call Groq API
-            System.out.println("Sending request to Groq API...");
             ResponseEntity<Map<String, Object>> response = restTemplate.postForEntity(url, entity, (Class<Map<String, Object>>) (Class<?>) Map.class);
-            System.out.println("Groq Response Status: " + response.getStatusCode());
 
             Map<String, Object> responseBody = response.getBody();
 
@@ -863,7 +857,7 @@ public class ChatController {
             doctorInfo.put("id", doctor.getId());
             doctorInfo.put("name", doctor.getName());
             doctorInfo.put("specialization", doctor.getSpecialization());
-            doctorInfo.put("qualifications", doctor.getQualification());
+            doctorInfo.put("qualification", doctor.getQualification());
             doctorInfo.put("experience", doctor.getExperience());
             doctorInfo.put("imageUrl", doctor.getImageUrl() != null ? doctor.getImageUrl() : "");
             doctorList.add(doctorInfo);

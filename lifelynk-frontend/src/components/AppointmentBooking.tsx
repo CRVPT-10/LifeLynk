@@ -15,7 +15,7 @@ interface Doctor {
   id: string;
   name: string;
   specialization: string;
-  qualifications: string;
+  qualification: string;
 }
 
 interface TimeSlot {

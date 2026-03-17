@@ -27,7 +27,8 @@ interface Message {
         id: string;
         name: string;
         specialization: string;
-        qualifications: string;
+        qualification: string;
+        imageUrl?: string;
     }>;
     availableSlots?: string[];
     appointmentDetails?: {
@@ -196,11 +197,17 @@ const ChatWidget = ({ autoOpen = false, embedMode = false }: ChatWidgetProps) =>
         scrollToBottom();
     }, [messages, isOpen]);
 
-    const handleSend = async () => {
-        if (!input.trim()) return;
-        const userMessage: Message = { role: 'user', content: input };
+    const handleSend = async (messageText?: string) => {
+        const textToSend = messageText || input;
+        if (!textToSend.trim()) return;
+        
+        const userMessage: Message = { role: 'user', content: textToSend };
         setMessages(prev => [...prev, userMessage]);
-        setInput('');
+        
+        if (!messageText) {
+            setInput('');
+        }
+        
         setIsLoading(true);
 
         try {
@@ -322,6 +329,10 @@ const ChatWidget = ({ autoOpen = false, embedMode = false }: ChatWidgetProps) =>
             e.preventDefault();
             handleSend();
         }
+    };
+
+    const handleSendMessage = (msg: string) => {
+        handleSend(msg);
     };
 
     return (
@@ -457,10 +468,8 @@ const ChatWidget = ({ autoOpen = false, embedMode = false }: ChatWidgetProps) =>
                                                                 <div className={`text-xs mb-2 font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                                                                     {doctor.specialization}
                                                                 </div>
-                                                                {doctor.qualifications && (
-                                                                    <div className={`text-[10px] mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-                                                                        {doctor.qualifications}
-                                                                    </div>
+                                                                {doctor.qualification && (
+                                                                    <p className="text-xs text-indigo-100/80 mb-3">{doctor.qualification}</p>
                                                                 )}
                                                             </div>
                                                             <button
@@ -610,7 +619,7 @@ const ChatWidget = ({ autoOpen = false, embedMode = false }: ChatWidgetProps) =>
                                 <button onClick={toggleListening} className={`p-2 rounded-full ${isListening ? 'text-red-500 animate-pulse' : 'text-gray-400'}`}>
                                     {isListening ? <MicOff size={18} /> : <Mic size={18} />}
                                 </button>
-                                <button onClick={handleSend} disabled={!input.trim() || isLoading} className="p-2 text-indigo-600 disabled:opacity-50">
+                                <button onClick={() => handleSend()} disabled={!input.trim() || isLoading} className="p-2 text-indigo-600 disabled:opacity-50">
                                     <Send size={18} />
                                 </button>
                             </div>
