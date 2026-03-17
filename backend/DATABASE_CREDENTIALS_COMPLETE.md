@@ -1,6 +1,6 @@
 # 🏥 HOSPICO DATABASE - COMPLETE CREDENTIALS REPORT
 
-**Generated:** Wed Feb 04 19:20:32 IST 2026
+**Generated:** Mon Mar 02 22:03:08 IST 2026
 
 ---
 
@@ -306,7 +306,7 @@
 
 ## 👥 ALL USER ACCOUNTS SUMMARY
 
-### USER Users (6)
+### USER Users (9)
 
 | Name | Email | Password |
 |------|-------|----------|
@@ -316,6 +316,9 @@
 |  | `admin@gmail.com` | `user123` |
 | djr | `djr@gmail.com` | `user123` |
 |  | `admin1@gmail.com` | `user123` |
+| praney | `praney@gmail.com` | `user123` |
+|  | `admins@gmail.com` | `user123` |
+| vikram | `vikram@gmail.com` | `user123` |
 
 ### HOSPITAL Users (11)
 
@@ -374,8 +377,8 @@
 |--------|-------|
 | Total Hospitals | 10 |
 | Total Doctors | 21 |
-| Total Users | 40 |
+| Total Users | 43 |
 | Hospital Owners | 11 |
 | Doctor Accounts | 20 |
 | Admin Accounts | 3 |
-| Regular Users | 6 |
+| Regular Users | 9 |
