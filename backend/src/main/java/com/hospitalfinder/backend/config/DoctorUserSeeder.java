@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+// @Component
 @Order(10) // Run after other seeders
 @RequiredArgsConstructor
 public class DoctorUserSeeder implements CommandLineRunner {
@@ -29,7 +29,7 @@ public class DoctorUserSeeder implements CommandLineRunner {
 
     private void seedDoctorUser() {
         // Check if doctor user already exists
-        User existingDoctor = userRepository.findByEmail("dr.sarah@cityhospital.com");
+        User existingDoctor = userRepository.findByEmail("dr.sarah@lifelynk.com");
         if (existingDoctor != null) {
             System.out.println("✅ Doctor user already exists - skipping");
             return;

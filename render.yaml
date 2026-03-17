@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: hospico-backend
+    name: lifelynk-backend
     env: docker
     plan: free
     region: oregon
@@ -18,9 +18,9 @@ services:
         sync: false
 
   - type: web
-    name: hospico-frontend
+    name: lifelynk-frontend
     env: docker
     plan: free
     region: oregon
     dockerfilePath: ./Dockerfile
-    dockerContext: ./hospico-frontend-main
+    dockerContext: ./lifelynk-frontend

@@ -1,16 +1,16 @@
 package com.hospitalfinder.backend.repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.hospitalfinder.backend.entity.Appointment;
 
-public interface AppointmentRepository extends MongoRepository<Appointment, String> {
+public interface AppointmentRepository extends JpaRepository<Appointment, String> {
     Collection<Appointment> findByUserId(String userId);
     Collection<Appointment> findByClinicId(String clinicId);
     List<Appointment> findByUserIdAndStatusIgnoreCase(String userId, String status);
@@ -21,6 +21,6 @@ public interface AppointmentRepository extends MongoRepository<Appointment, Stri
     boolean existsByDoctorIdAndAppointmentTime(String doctorId, LocalDateTime appointmentTime);
 
     // get all booked slots of a doctor for a date
-    @Query("{ 'doctorId': ?0, 'appointmentTime': { $gte: ?1, $lt: ?2 } }")
-    List<Appointment> findByDoctorAndDate(String doctorId, LocalDateTime startOfDay, LocalDateTime endOfDay);
+    @Query("SELECT a FROM Appointment a WHERE a.doctorId = :doctorId AND a.appointmentTime >= :startOfDay AND a.appointmentTime < :endOfDay")
+    List<Appointment> findByDoctorAndDate(@Param("doctorId") String doctorId, @Param("startOfDay") LocalDateTime startOfDay, @Param("endOfDay") LocalDateTime endOfDay);
 }

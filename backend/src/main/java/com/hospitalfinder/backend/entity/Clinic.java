@@ -1,17 +1,19 @@
 package com.hospitalfinder.backend.entity;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Document(collection = "clinics")
+@Entity
+@Table(name = "clinics")
 public class Clinic {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Getter
     @Setter
     private String id;
@@ -44,7 +46,13 @@ public class Clinic {
     private Double longitude;
     @Getter
     @Setter
-    private Collection<Specialization> specializations = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "clinic_specializations",
+        joinColumns = @JoinColumn(name = "clinic_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "specialization_id", referencedColumnName = "id")
+    )
+    private java.util.Set<Specialization> specializations = new java.util.HashSet<>();
     @Getter
     @Setter
     private String phone;
@@ -68,6 +76,7 @@ public class Clinic {
     private Integer reviews;
     @Getter
     @Setter
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Doctor> doctors = new ArrayList<>();
     @Getter
     @Setter

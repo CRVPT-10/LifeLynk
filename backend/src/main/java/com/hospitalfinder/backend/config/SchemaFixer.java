@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * MongoDB collection and index creation is handled by MongoDbConfig.
  * This class is kept for compatibility purposes.
  */
-@Component
+// @Component
 public class SchemaFixer {
     // Removed PostgreSQL schema initialization code - no longer applicable
 }

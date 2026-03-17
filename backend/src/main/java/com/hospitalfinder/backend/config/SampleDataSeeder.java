@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+// @Component
 @Order(2)
 @RequiredArgsConstructor
 public class SampleDataSeeder implements CommandLineRunner {

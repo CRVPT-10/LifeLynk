@@ -19,6 +19,7 @@ import com.hospitalfinder.backend.dto.AppointmentRequestDTO;
 import com.hospitalfinder.backend.dto.AppointmentResponseDTO;
 import com.hospitalfinder.backend.entity.Appointment;
 import com.hospitalfinder.backend.entity.Clinic;
+import com.hospitalfinder.backend.entity.Doctor;
 import com.hospitalfinder.backend.entity.User;
 import com.hospitalfinder.backend.repository.AppointmentRepository;
 import com.hospitalfinder.backend.repository.ClinicRepository;
@@ -106,7 +107,7 @@ public class AppointmentController {
         var responseList = appointments.stream()
                 .map(apt -> {
                     Clinic clinic = clinicRepository.findById(apt.getClinicId()).orElse(null);
-                    var doctor = doctorRepository.findById(apt.getDoctorId()).orElse(null);
+                    Doctor doctor = doctorRepository.findById(apt.getDoctorId()).orElse(null);
                     return new AppointmentResponseDTO(apt, clinic, doctor, user);
                 })
                 .toList();
@@ -121,7 +122,7 @@ public class AppointmentController {
         var appointments = appointmentRepository.findByClinicId(clinicId);
         var responseList = appointments.stream()
                 .map(apt -> {
-                    var doctor = doctorRepository.findById(apt.getDoctorId()).orElse(null);
+                    Doctor doctor = doctorRepository.findById(apt.getDoctorId()).orElse(null);
                     var user = apt.getUserId() != null ? userRepository.findById(apt.getUserId()).orElse(null) : null;
                     return new AppointmentResponseDTO(apt, clinic, doctor, user);
                 })
@@ -132,15 +133,15 @@ public class AppointmentController {
     @GetMapping("/doctor/{doctorId}/date/{date}")
     public ResponseEntity<?> getAppointmentsByDoctorAndDate(@PathVariable String doctorId, @PathVariable String date) {
         try {
-            System.out.println("Received request for doctorId: " + doctorId + ", date: " + date);
+
             LocalDate appointmentDate = LocalDate.parse(date);
-            System.out.println("Parsed LocalDate: " + appointmentDate);
+
             LocalDateTime startOfDay = appointmentDate.atStartOfDay();
             LocalDateTime endOfDay = appointmentDate.atTime(23, 59, 59);
             List<Appointment> appointments = appointmentRepository.findByDoctorAndDate(doctorId, startOfDay, endOfDay);
-            System.out.println("Found " + appointments.size() + " appointments");
+
             // Filter only BOOKED appointments
-            var doctor = doctorRepository.findById(doctorId).orElse(null);
+            Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
             var bookedAppointments = appointments.stream()
                     .filter(apt -> "BOOKED".equalsIgnoreCase(apt.getStatus()))
                     .map(apt -> {
@@ -149,7 +150,7 @@ public class AppointmentController {
                         return new AppointmentResponseDTO(apt, clinic, doctor, user);
                     })
                     .toList();
-            System.out.println("Returning " + bookedAppointments.size() + " booked appointments");
+
             return ResponseEntity.ok(bookedAppointments);
         } catch (Exception e) {
             System.err.println("ERROR in getAppointmentsByDoctorAndDate: " + e.getMessage());

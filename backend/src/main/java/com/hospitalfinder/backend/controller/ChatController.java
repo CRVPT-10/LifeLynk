@@ -234,17 +234,17 @@ public class ChatController {
         try {
             // 5. Call Groq API
             System.out.println("Sending request to Groq API...");
-            ResponseEntity<Map> response = restTemplate.postForEntity(url, entity, Map.class);
+            ResponseEntity<Map<String, Object>> response = restTemplate.postForEntity(url, entity, (Class<Map<String, Object>>) (Class<?>) Map.class);
             System.out.println("Groq Response Status: " + response.getStatusCode());
 
             Map<String, Object> responseBody = response.getBody();
 
             // 6. Extract Content
             if (responseBody != null && responseBody.containsKey("choices")) {
-                List choices = (List) responseBody.get("choices");
+                List<Map<String, Object>> choices = (List<Map<String, Object>>) responseBody.get("choices");
                 if (!choices.isEmpty()) {
-                    Map choice = (Map) choices.get(0);
-                    Map message = (Map) choice.get("message");
+                    Map<String, Object> choice = choices.get(0);
+                    Map<String, Object> message = (Map<String, Object>) choice.get("message");
                     String replyContent = (String) message.get("content");
 
                     // If symptoms were detected, try to parse JSON response
@@ -863,7 +863,7 @@ public class ChatController {
             doctorInfo.put("id", doctor.getId());
             doctorInfo.put("name", doctor.getName());
             doctorInfo.put("specialization", doctor.getSpecialization());
-            doctorInfo.put("qualifications", doctor.getQualifications());
+            doctorInfo.put("qualifications", doctor.getQualification());
             doctorInfo.put("experience", doctor.getExperience());
             doctorInfo.put("imageUrl", doctor.getImageUrl() != null ? doctor.getImageUrl() : "");
             doctorList.add(doctorInfo);

@@ -31,12 +31,12 @@ interface Hospital {
 }
 
 interface Review {
-  id: number;
+  id: string;
   rating: number;
   comment: string;
   createdAt: string;
-  userId: number;
-  doctorId: number;
+  userId: string;
+  doctorId: string;
 }
 
 const HospitalProfile = () => {
@@ -69,7 +69,7 @@ const HospitalProfile = () => {
     }
   }, [id]);
 
-  const handleDeleteReview = async (reviewId: number) => {
+  const handleDeleteReview = async (reviewId: string) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
 
     try {
@@ -92,7 +92,7 @@ const HospitalProfile = () => {
   // Filter reviews based on selection
   const filteredReviews = reviews.filter(review => {
     if (selectedSpecialization === "All") return true;
-    const doctor = hospital?.doctors?.find(d => Number(d.id) === review.doctorId);
+    const doctor = hospital?.doctors?.find(d => d.id === review.doctorId);
     return (doctor?.specialization || "General Practitioner") === selectedSpecialization;
   });
 
@@ -278,7 +278,7 @@ const HospitalProfile = () => {
         {filteredReviews.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredReviews.map((review, index) => {
-              const reviewDoctor = hospital?.doctors?.find(d => Number(d.id) === review.doctorId);
+              const reviewDoctor = hospital?.doctors?.find(d => d.id === review.doctorId);
 
               return (
                 <div
@@ -286,7 +286,7 @@ const HospitalProfile = () => {
                   className="relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 hover:shadow-lg hover:border-blue-200 dark:hover:border-blue-800 transition-all duration-300 group"
                 >
                   {/* Delete Button - Only show if current user owns the review */}
-                  {(Number(review.userId) === Number(currentUserId) || currentUserId === 1) && (
+                  {(review.userId === String(currentUserId) || currentUserId === 1) && (
                     <button
                       onClick={() => handleDeleteReview(review.id)}
                       className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:text-red-400 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded-lg transition-all z-10"

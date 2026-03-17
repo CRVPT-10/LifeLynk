@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Geolocation } from "@capacitor/geolocation";
-import { Capacitor } from "@capacitor/core";
 import HospitalSearch from "../components/HospitalSearch";
 import ProtectedRoute from "../components/ProtectedRoute";
 import { apiRequest } from "../api";
@@ -34,22 +32,7 @@ const FindHospitals = () => {
       const detectLocation = async () => {
         let coords: { latitude: number; longitude: number } | null = null;
 
-        if (Capacitor.isNativePlatform()) {
-          try {
-            const status = await Geolocation.checkPermissions();
-            if (status.location !== "granted") {
-              await Geolocation.requestPermissions();
-            }
-            const pos = await Geolocation.getCurrentPosition({
-              enableHighAccuracy: true,
-              timeout: 30000,
-              maximumAge: Infinity,
-            });
-            coords = { latitude: pos.coords.latitude, longitude: pos.coords.longitude };
-          } catch (e) {
-            console.error("Native location error:", e);
-          }
-        } else if (navigator.geolocation) {
+        if (navigator.geolocation) {
           try {
             const pos = await new Promise<GeolocationPosition>((resolve, reject) =>
               navigator.geolocation.getCurrentPosition(resolve, reject)

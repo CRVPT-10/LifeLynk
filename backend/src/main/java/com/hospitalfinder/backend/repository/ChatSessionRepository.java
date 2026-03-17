@@ -1,14 +1,14 @@
 package com.hospitalfinder.backend.repository;
 
 import com.hospitalfinder.backend.entity.ChatSession;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
-public interface ChatSessionRepository extends MongoRepository<ChatSession, String> {
+public interface ChatSessionRepository extends JpaRepository<ChatSession, String> {
     
     Optional<ChatSession> findBySessionId(String sessionId);
     

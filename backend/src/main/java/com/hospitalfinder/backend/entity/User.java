@@ -1,13 +1,14 @@
 package com.hospitalfinder.backend.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Document(collection = "users")
+@Entity
+@Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Getter
     @Setter
     private String id;
@@ -34,6 +35,7 @@ public class User {
 
     @Getter
     @Setter
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     // For HOSPITAL role users - links to their owned hospital/clinic

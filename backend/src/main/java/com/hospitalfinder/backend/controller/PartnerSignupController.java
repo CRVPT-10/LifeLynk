@@ -17,6 +17,8 @@ import com.hospitalfinder.backend.repository.ClinicRepository;
 import com.hospitalfinder.backend.repository.UserRepository;
 import com.hospitalfinder.backend.service.JwtService;
 
+import java.util.HashSet;
+import java.util.Set;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -69,7 +71,7 @@ public class PartnerSignupController {
         clinic.setPincode(request.getPincode());
         clinic.setPhone(request.getHospitalPhone());
         clinic.setEmail(request.getHospitalEmail());
-        clinic.setSpecializations(request.getSpecializations());
+        clinic.setSpecializations(new HashSet<>(request.getSpecializations()));
         clinic.setDescription(request.getDescription());
         clinic.setLatitude(request.getLatitude());
         clinic.setLongitude(request.getLongitude());

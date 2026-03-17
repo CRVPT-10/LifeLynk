@@ -14,7 +14,7 @@ import com.hospitalfinder.backend.entity.Specialization;
 import com.hospitalfinder.backend.repository.ClinicRepository;
 import com.hospitalfinder.backend.repository.DoctorRepository;
 
-@Component
+// @Component
 public class DataSeeder {
 
     private final ClinicRepository clinicRepository;
@@ -99,7 +99,7 @@ public class DataSeeder {
                 String newName = "Dr. " + firstNames[random.nextInt(firstNames.length)] + " "
                         + lastNames[random.nextInt(lastNames.length)];
                 doc.setName(newName);
-                doc.setQualifications("MBBS, MD");
+                doc.setQualification("MBBS, MD");
                 doc.setExperience((10 + random.nextInt(15)) + " years");
                 doc.setBiography("Experienced " + specName.toLowerCase() + " specialist with over "
                         + doc.getExperience() + " of practice.");

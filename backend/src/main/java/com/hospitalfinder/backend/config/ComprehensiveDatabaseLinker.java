@@ -17,7 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-@Component
+// @Component
 @Order(15) // Run after all other seeders
 @RequiredArgsConstructor
 public class ComprehensiveDatabaseLinker implements CommandLineRunner {
@@ -35,7 +35,7 @@ public class ComprehensiveDatabaseLinker implements CommandLineRunner {
         System.out.println("🔗 COMPREHENSIVE DATABASE LINKER STARTED");
         System.out.println("========================================\n");
 
-        reportBuilder.append("# 🏥 HOSPICO DATABASE - COMPLETE CREDENTIALS REPORT\n\n");
+        reportBuilder.append("# 🏥 LIFELYNK DATABASE - COMPLETE CREDENTIALS REPORT\n\n");
         reportBuilder.append("**Generated:** ").append(new Date()).append("\n\n");
         reportBuilder.append("---\n\n");
 
@@ -92,10 +92,7 @@ public class ComprehensiveDatabaseLinker implements CommandLineRunner {
             // Create a new hospital owner
             User owner = new User();
             String ownerName = ownerNames[ownerIndex % ownerNames.length];
-            String email = ownerName.toLowerCase().replace("dr. ", "").replace(" ", ".") + "@" +
-                    clinic.getName().toLowerCase().replace(" ", "").substring(0,
-                            Math.min(10, clinic.getName().length()))
-                    + ".com";
+            String email = ownerName.toLowerCase().replace("dr. ", "").replace(" ", ".") + "@lifelynk.com";
 
             owner.setName(ownerName);
             owner.setEmail(email);
@@ -156,7 +153,7 @@ public class ComprehensiveDatabaseLinker implements CommandLineRunner {
             String email = "dr." + doctor.getName().toLowerCase()
                     .replace("dr. ", "")
                     .replace(" ", ".")
-                    .replaceAll("[^a-z.]", "") + "@hospico.com";
+                    .replaceAll("[^a-z.]", "") + "@lifelynk.com";
 
             // Check if user already exists
             User existingUser = userRepository.findByEmail(email);
@@ -241,7 +238,7 @@ public class ComprehensiveDatabaseLinker implements CommandLineRunner {
             reportBuilder.append("- **Doctor ID:** `").append(doctor.getId()).append("`\n");
             reportBuilder.append("- **Specialization:** ").append(doctor.getSpecialization()).append("\n");
             reportBuilder.append("- **Qualifications:** ")
-                    .append(doctor.getQualifications() != null ? doctor.getQualifications() : "MBBS, MD").append("\n");
+                    .append(doctor.getQualification() != null ? doctor.getQualification() : "MBBS, MD").append("\n");
 
             if (clinic != null) {
                 reportBuilder.append("- **Works At:** ").append(clinic.getName()).append("\n");

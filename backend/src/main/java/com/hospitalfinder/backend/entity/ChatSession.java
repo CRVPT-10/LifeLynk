@@ -1,19 +1,20 @@
 package com.hospitalfinder.backend.entity;
 
 import java.time.LocalDateTime;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "chat_sessions")
+@Entity
+@Table(name = "chat_sessions")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class ChatSession {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String userId;  // Optional - for logged-in users

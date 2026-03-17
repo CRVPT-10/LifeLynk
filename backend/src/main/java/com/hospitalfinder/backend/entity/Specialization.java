@@ -1,11 +1,16 @@
 package com.hospitalfinder.backend.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 
-@Document(collection = "specializations")
+@Entity
+@Table(name = "specializations")
 public class Specialization {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private String specialization;

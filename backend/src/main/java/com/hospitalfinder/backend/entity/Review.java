@@ -1,7 +1,6 @@
 package com.hospitalfinder.backend.entity;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Document(collection = "reviews")
+@Entity
+@Table(name = "reviews")
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 public class Review {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     private Integer rating;

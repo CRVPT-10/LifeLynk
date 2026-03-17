@@ -9,17 +9,19 @@ spring:
     log-startup-info: false
     allow-bean-definition-overriding: true
     allow-circular-references: true
-  data:
-    mongodb:
-      uri: mongodb+srv://23eg106c21_db_user:Wk0NnJanrSCJNdGN@lifelink.iy3cmpk.mongodb.net/hospicoDB?retryWrites=true&w=majority&maxPoolSize=10&minPoolSize=5&maxIdleTimeMS=30000
-      auto-index-creation: true
-      connect-timeout: 10000
-      socket-timeout: 10000
-  devtools:
-    restart:
-      enabled: false
-  jmx:
-    enabled: false
+  datasource:
+    url: ${DB_URL:${SPRING_DATASOURCE_URL}}
+    username: ${DB_USER:${SPRING_DATASOURCE_USERNAME}}
+    password: ${DB_PASSWORD:${SPRING_DATASOURCE_PASSWORD}}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: false
 
 management:
   endpoints:
@@ -35,7 +37,7 @@ springdoc:
     enabled: true
 
 application:
-  name: hospital-booking-backend
+  name: lifelynk-backend
 
 groq:
   api:

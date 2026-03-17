@@ -13,7 +13,7 @@ import lombok.Setter;
 
 public class ClinicResponseDTO {
     @Getter @Setter
-    private String clinicId;
+    private String id;
     @Getter @Setter
     private String name;
     @Getter @Setter
@@ -43,7 +43,7 @@ public class ClinicResponseDTO {
 
     // Constructor
     public ClinicResponseDTO(Clinic clinic) {
-        this.clinicId = clinic.getId();
+        this.id = clinic.getId();
         this.name = clinic.getName();
         this.address = clinic.getAddress();
         this.city = clinic.getCity();

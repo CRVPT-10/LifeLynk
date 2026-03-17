@@ -2,19 +2,20 @@ package com.hospitalfinder.backend.entity;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "appointments")
+@Entity
+@Table(name = "appointments")
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
 public class Appointment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     // the person who is booking the appointment

@@ -1,7 +1,9 @@
 package com.hospitalfinder.backend.service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -146,7 +148,7 @@ public class ClinicService {
         } else {
             specializations = java.util.Collections.emptyList();
         }
-        clinic.setSpecializations(specializations);
+        clinic.setSpecializations(new java.util.HashSet<>(specializations));
 
         clinicRepository.save(clinic);
         return new ClinicResponseDTO(clinic);
